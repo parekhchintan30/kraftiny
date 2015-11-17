@@ -198,7 +198,7 @@ $(document).on('click','.navbar-collapse.in',function(e) {
 
 function submitMessage(){
    // ajaxindicatorstart('Sending Mail ...');
-            
+    alert("Sending mail");        
     var name = $("#name").val();
     var email = $("#email").val();
     var subject = $("#subject").val();
@@ -214,6 +214,7 @@ function submitMessage(){
         'message': message
     },
     success: function (data) {
+        alert("here");
         response = $.parseJSON(data);
         if (response.status == "success") {
             changeLoaderText("Mail Sent");
