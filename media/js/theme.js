@@ -198,7 +198,6 @@ $(document).on('click','.navbar-collapse.in',function(e) {
 
 function submitMessage(){
     ajaxindicatorstart('Sending Mail ...');
-    alert("Sending mail");        
     var name = $("#name").val();
     var email = $("#email").val();
     var subject = $("#subject").val();
