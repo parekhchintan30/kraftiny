@@ -197,7 +197,7 @@ $(document).on('click','.navbar-collapse.in',function(e) {
 
 
 function submitMessage(){
-   // ajaxindicatorstart('Sending Mail ...');
+    ajaxindicatorstart('Sending Mail ...');
     alert("Sending mail");        
     var name = $("#name").val();
     var email = $("#email").val();
@@ -214,16 +214,81 @@ function submitMessage(){
         'message': message
     },
     success: function (data) {
-        alert("here");
         response = $.parseJSON(data);
         if (response.status == "success") {
             changeLoaderText("Mail Sent");
-            $("#mail_notification").html("Mail Sent successfully")
+            $("#name").val("");
+            $("#email").val("");
+            $("#subject").val("");
+            $("#message").val("");
+            $("#mail_notification").html("We have received your mail. We will get back to you shortly.")
         } else {
-            alert("There was an error in sending mail. Please contact administrator");
+            $("#mail_notification").html("We are really sorry. There seems to be some issue in sending mail. Please try again later on call us on +91-9769398129 for more details.");
         }
         ajaxindicatorstop();
     }
 });
 
+}
+/*
+* Used to manage the loaders 
+*/
+function changeLoaderText(text){
+    //alert($("#loader_text").hmtl());
+    $("#loader_text").html(text);
+}
+function ajaxindicatorstart(text)
+{
+  if(jQuery('body').find('#resultLoading').attr('id') != 'resultLoading'){
+  jQuery('body').append('<div id="resultLoading" style="display:none"><div><img src="/media/images/ajax-loader.gif"><div id="loader_text">'+text+'</div></div><div class="bg"></div></div>');
+  }else{
+    changeLoaderText(text);
+  }
+  jQuery('#resultLoading').css({
+    'width':'100%',
+    'height':'100%',
+    'position':'fixed',
+    'z-index':'10000000',
+    'top':'0',
+    'left':'0',
+    'right':'0',
+    'bottom':'0',
+    'margin':'auto'
+  });
+
+  jQuery('#resultLoading .bg').css({
+    'background':'#000000',
+    'opacity':'0.7',
+    'width':'100%',
+    'height':'100%',
+    'position':'absolute',
+    'top':'0'
+  });
+
+  jQuery('#resultLoading>div:first').css({
+    'width': '250px',
+    'height':'75px',
+    'text-align': 'center',
+    'position': 'fixed',
+    'top':'0',
+    'left':'0',
+    'right':'0',
+    'bottom':'0',
+    'margin':'auto',
+    'font-size':'16px',
+    'z-index':'10',
+    'color':'#ffffff'
+
+  });
+
+    jQuery('#resultLoading .bg').height('100%');
+       jQuery('#resultLoading').fadeIn(300);
+    jQuery('body').css('cursor', 'wait');
+}
+
+function ajaxindicatorstop()
+{
+    jQuery('#resultLoading .bg').height('100%');
+       jQuery('#resultLoading').fadeOut(300);
+    jQuery('body').css('cursor', 'default');
 }
